@@ -1,5 +1,7 @@
-const mongoose=require('express')
+const mongoose=require('mongoose')
 const ObjectId=mongoose.Schema.Types.ObjectId
+const moment = require('moment')
+
 
 const reviewSchema=new mongoose.Schema({
     bookId:{
@@ -18,7 +20,8 @@ const reviewSchema=new mongoose.Schema({
     },
     reviewedAt:{
         type:Date,
-        required:true
+        required:true,
+        default: moment(new Date(), "YYYY/MM/DD")
     },
     rating:{
         type:Number,

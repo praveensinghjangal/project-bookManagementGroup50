@@ -1,5 +1,7 @@
 const validator = require('validator')
-const passwordValidator = require('password-validator');
+const mongoose = require('mongoose')
+//const passwordValidator = require('password-validator');
+const ObjectId = mongoose.Types.ObjectId;
 
 
 const isvalidRequestBody = function (value) {
@@ -25,13 +27,20 @@ const isValidEmail = function (email) {
     return false;
 }
 const isValidObjectId = function (userId) {
-    return ObjectId.isValid(userId)
+    return mongoose.isValidObjectId(userId)
 }
 
 const isValidpassword = function (password) {
 
     let checkPassword = /^[a-zA-Z0-9!@#$%^&*]{8,15}$/
     if (checkPassword.test(password)) {
+        return true
+    }
+    return false
+}
+const isValidISBN =function(ISBN){
+    let checkISBN= /^(?=(?:\D*\d){13}(?:(?:\D*\d){3})?$)[\d-]+$/
+    if(checkISBN.test(ISBN)){
         return true
     }
     return false
@@ -43,8 +52,8 @@ module.exports = {
     isValidMobileNumber,
     isValidEmail,
     isValidObjectId,
-    isValidpassword
+    isValidpassword,
+    isValidISBN
 }
-
 
 // .has().uppercase().has().lowercase().has().digits(2).has().not().spaces().is().not().oneOf(['Passw0rd', 'Password123', 'mypassword']

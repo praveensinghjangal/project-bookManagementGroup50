@@ -34,9 +34,9 @@ const createUser = async function (req, res) {
         if (!Validator.isValidpassword(password)) { return res.status(400).send({ status: false, msg: "password should be have minimum 8 character and max 15 character" }) }
 
 
-        const newUser = { title, name, phone, email, password, address }
+        //  const newUser = { title, name, phone, email, password, address }
         // to create the user
-        const createdUser = await UserModel.create(newUser)
+        const createdUser = await UserModel.create(data)
         res.status(201).send({ msg: "createddata", data: createdUser })
 
     } catch (err) {

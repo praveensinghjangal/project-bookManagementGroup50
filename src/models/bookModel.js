@@ -1,5 +1,6 @@
-const mongoose=require('express')
-const ObjectId=mongoose.Schema.Types.ObjectId
+const mongoose= require('mongoose')
+const ObjectId= mongoose.Schema.Types.ObjectId
+const moment = require('moment')
 
 const bookSchema=new mongoose.Schema({
     title:{
@@ -16,7 +17,8 @@ const bookSchema=new mongoose.Schema({
     userId:{
         type:ObjectId,
         ref:'User',
-        required:true,
+        required:true
+    
     },
     ISBN:{
         type:String,
@@ -25,12 +27,14 @@ const bookSchema=new mongoose.Schema({
         trim:true
     },
     category:{
-        type:string,
-        required:'Please enter the category'
+        type:String,
+        required:'Please enter the category',
+        trim:true
     },
     subcategory:{
-        type:string,
-        required:'Please enter the category'
+        type:[String],
+        required:'Please enter the category',
+        trim:true
     },
     reviews:{
         type:Number,
@@ -45,9 +49,12 @@ const bookSchema=new mongoose.Schema({
         default:false
     },
     releasedAt:{
-        type:Date,
+        type: Date,
         required:true,
-        pattern: "^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$"
+        default: moment(new Date(), "YYYY/MM/DD"),
+
+
+        // pattern: "^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$"
     }
 
 },{timestamps:true});
