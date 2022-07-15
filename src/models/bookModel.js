@@ -1,11 +1,6 @@
 const mongoose= require('mongoose')
-<<<<<<< HEAD
-const ObjectId= mongoose.Schema.Types.ObjectId
-const moment = require('moment')
-=======
 const ObjectId=mongoose.Types.ObjectId
 const moment =require('moment')
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
 
 const bookSchema=new mongoose.Schema({
     title:{
@@ -14,10 +9,8 @@ const bookSchema=new mongoose.Schema({
         unique:true,
         trim:true
     },
-
     // bookUrl:{
-    //     type: String,
-        
+    //     type: String
     // },
     excerpt:{
         type:String,
@@ -28,10 +21,6 @@ const bookSchema=new mongoose.Schema({
         type:ObjectId,
         ref:'User',
         required:true
-<<<<<<< HEAD
-    
-=======
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
     },
     ISBN:{
         type:String,
@@ -41,21 +30,11 @@ const bookSchema=new mongoose.Schema({
     },
     category:{
         type:String,
-<<<<<<< HEAD
-        required:'Please enter the category',
-        trim:true
-    },
-    subcategory:{
-        type:[String],
-        required:'Please enter the category',
-        trim:true
-=======
         required:'Please enter the category'
     },
     subcategory:{
         type:[String],
         required:'Please enter the category'
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
     },
     reviews:{
         type:Number,
@@ -69,18 +48,10 @@ const bookSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     },
-
     releasedAt:{
-        type: Date,
+        type:Date,
         required:true,
-<<<<<<< HEAD
-        default: moment(new Date(), "YYYY/MM/DD"),
-
-
-        // pattern: "^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$"
-=======
         default: moment(new Date(), "YYYY/MM/DD")
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
     }
 
 },{timestamps:true});

@@ -1,10 +1,6 @@
 const validator = require('validator')
 const mongoose = require('mongoose')
-<<<<<<< HEAD
-//const passwordValidator = require('password-validator');
-=======
 const passwordValidator = require('password-validator');
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
 const ObjectId = mongoose.Types.ObjectId;
 
 
@@ -13,12 +9,8 @@ const isvalidRequestBody = function (value) {
 }   
 const isValidBody = function (value) {
     if (typeof value === 'undefined' || value === 'null') return false
-<<<<<<< HEAD
-    if (typeof value === 'string' && value.trim().length === 0) return false   
-=======
     if (typeof value === 'string' && value.trim().length === 0) return false
     if (typeof value === 'number' && value.toString().trim().length === 0) return false
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
     return true
 }
 const isValidMobileNumber = function (mobile) {
@@ -36,11 +28,7 @@ const isValidEmail = function (email) {
     return false;
 }
 const isValidObjectId = function (userId) {
-<<<<<<< HEAD
-    return mongoose.isValidObjectId(userId)
-=======
     return mongoose.Types.ObjectId.isValid(userId)
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
 }
 
 const isValidpassword = function (password) {
@@ -51,11 +39,6 @@ const isValidpassword = function (password) {
     }
     return false
 }
-<<<<<<< HEAD
-const isValidISBN =function(ISBN){
-    let checkISBN= /^(?=(?:\D*\d){13}(?:(?:\D*\d){3})?$)[\d-]+$/
-    if(checkISBN.test(ISBN)){
-=======
 const isValidISBN = function (ISBN) {
     let checkISBN = /^(?=(?:\D*\d){13}(?:(?:\D*\d){3})?$)[\d-]+$/
     if (checkISBN.test(ISBN)) {
@@ -68,7 +51,6 @@ const isValidDate=function(date){
 
     let checkDate=/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
     if(checkDate.test(date)){
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
         return true
     }
     return false
@@ -81,15 +63,6 @@ module.exports = {
     isValidEmail,
     isValidObjectId,
     isValidpassword,
-<<<<<<< HEAD
-    isValidISBN
-}
-
-// .has().uppercase().has().lowercase().has().digits(2).has().not().spaces().is().not().oneOf(['Passw0rd', 'Password123', 'mypassword']
-=======
     isValidISBN,
     isValidDate
 }
-
-
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd

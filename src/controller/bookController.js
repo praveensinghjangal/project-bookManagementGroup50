@@ -52,11 +52,27 @@ const createBook = async function (req, res) {
         if (!Validator.isValidDate(releasedAt)) { return res.status(400).send({ status: false, msg: 'Please enter the releasedAt in YYYY-MM-DD ' }) }
         // validation ends
 
-        // creating Book By data 
-        const createBook = await BookModel.create(requestBody)
+
+
+        const findBook = await UserModel.findById({ _id: requestBody.userId })
+        if (!findBook) {
+            return res.status(404).send({ status: false, message: "No book find by params" })
+
+        }
+        // 
+        //Authorization-if the user doesn't created the book, then won't be able to delete it.
+        else if (findBook._id != req.dtoken) {
+            return res.status(403).send({
+                status: false,
+                message: "Unauthorized access."
+            })
+        }
+        
+       const createBook = await BookModel.create(requestBody)
         return res.status(201).send({ status: true, msg: "Book created Successfully", data: createBook })
 
-    } catch (err) {
+    } 
+    catch (err) {
         res.status(500).send({
             status: false,
             msg: err.message
