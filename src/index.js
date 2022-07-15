@@ -8,12 +8,8 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-<<<<<<< HEAD
 
 //app.use(multer().any())
-=======
-app.use(express.json())
->>>>>>> 5e6f69afe6ad2d354496b3eec108e1ceaf00d2dd
 mongoose.connect("mongodb+srv://Prashant10:Cv4uY0uU1ijKMVpu@cluster0.j9jd1jo.mongodb.net/group50Database-DB?retryWrites=true&w=majority",{
     useNewUrlParser :true
 })
