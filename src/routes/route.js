@@ -12,10 +12,12 @@ router.get("/test",function(req,res){
 
 router.post('/register',userController.createUser)
 router.post('/login',userController.loginUser)
+
+
 router.post('/books',mw.authenticated, bookController.createBook)
-router.get('/books',bookController.getBooks)
+router.get('/books',mw.authenticated,bookController.getBooks)
 router.get('/books/:bookId',bookController.getbookparam)
-router.put('/books/:bookId',mw.authenticated, bookController.updateBooksById)
+router.put('/books/:bookId', bookController.updateBooksById)
 router.delete('/books/:bookId',mw.authenticated, bookController.deleteBooksById)
 
 

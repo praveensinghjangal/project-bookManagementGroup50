@@ -33,7 +33,7 @@ const createReview = async function (req, res) {
 
     if (!Validator.isValidBody(review)) { return res.status(400).send({ status: false, msg: 'Please enter the review' }) }
 
-    let bookexist = await BookModel.findOneAndUpdate({ _id: idParams, isDeleted: false }, { $inc: { reviews: 1 } }, { new: true })
+    let bookexist = await BookModel.findOneAndUpdate({ _id: idParams, isDeleted: false }, { $inc: { reviews: +1 } }, { new: true })
     console.log(bookexist)
     if (!bookexist) { return res.status(400).send({ status: false, msg: 'No such Book is available' }) }
 
@@ -135,7 +135,7 @@ const reviewdelete = async function (req, res) {
     let findreview = await reviewModel.findOne({ _id: reviewId, isDeleted: false })
     if (!findreview) { return res.status(404).send({ status: false, message: ' review does not exist or Deleted' }) }
 
-    if (idParams != findreview.bookId) return res.status(400).send({ status: false, msg: " BookiD AND reviewid doesn't matches" })
+    if (idParams !== findreview.bookId.toString()) return res.status(400).send({ status: false, msg: " BookiD AND reviewid doesn't matches" })
 
     const deleteReview = await reviewModel.findOneAndUpdate({ _id: reviewId, isDeleted: false }, { $set: { isDeleted: true } }, { new: true })
     if (deleteReview) {

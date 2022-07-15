@@ -9,7 +9,7 @@ const isvalidRequestBody = function (value) {
 }
 const isValidBody = function (value) {
     if (typeof value === 'undefined' || value === 'null') return false
-    if (typeof value === 'string' && value.trim().length === 0) return false
+    if (typeof value === 'string' && value.trim().length === 0) return false   
     return true
 }
 const isValidMobileNumber = function (mobile) {

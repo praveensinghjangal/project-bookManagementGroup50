@@ -9,6 +9,11 @@ const bookSchema=new mongoose.Schema({
         unique:true,
         trim:true
     },
+
+    // bookUrl:{
+    //     type: String,
+        
+    // },
     excerpt:{
         type:String,
         required:'Please enter the excerpt',
@@ -48,6 +53,7 @@ const bookSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     },
+
     releasedAt:{
         type: Date,
         required:true,
