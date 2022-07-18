@@ -10,7 +10,7 @@ const aws= require("aws-sdk")
 
 aws.config.update({
     accessKeyId: "AKIAY3L35MCRVFM24Q7U",
-    secretAccessKeyId: "qGG1HE0qRixcW1T1Wg1bv+08tQrIkFVyDFqSft4J",
+    secretAccessKey: "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",
     region: "ap-south-1"
 })
 
@@ -114,14 +114,20 @@ const createBook = async function (req, res) {
             //upload to s3 and get the uploaded link
             // res.send the link back to frontend/postman
             let uploadedFileURL= await uploadFile( files[0] )
-            res.status(201).send({msg: "file uploaded succesfully", data: uploadedFileURL})
+            requestBody.bookCover = uploadedFileURL
+
+            const createBook = await BookModel.create(requestBody)
+            return res.status(201).send({ status: true, msg: "Book created Successfully", data: createBook })
+    
+
+            // res.status(201).send({msg: "file uploaded succesfully", data: uploadedFileURL})
         }
         else{
             res.status(400).send({ msg: "No file found" })
         }
-        
-       const createBook = await BookModel.create(requestBody)
-        return res.status(201).send({ status: true, msg: "Book created Successfully", data: createBook })
+    
+    //    const createBook = await BookModel.create(requestBody)
+    //     return res.status(201).send({ status: true, msg: "Book created Successfully", data: createBook })
 
     } 
     catch (err) {
