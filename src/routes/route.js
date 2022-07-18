@@ -5,6 +5,7 @@ const bookController=require('../controller/bookController')
 const mw=require('../middlewares/auth')
 const reviewController=require('../controller/reviewController')
 
+
 router.get("/test",function(req,res){
     res.send("My first api for checking the terminal")
 })
@@ -16,8 +17,8 @@ router.post('/login',userController.loginUser)
 
 router.post('/books',mw.authenticated, bookController.createBook)
 router.get('/books',mw.authenticated,bookController.getBooks)
-router.get('/books/:bookId',bookController.getbookparam)
-router.put('/books/:bookId', bookController.updateBooksById)
+router.get('/books/:bookId',mw.authenticated,bookController.getbookparam)
+router.put('/books/:bookId', mw.authenticated,bookController.updateBooksById)
 router.delete('/books/:bookId',mw.authenticated, bookController.deleteBooksById)
 
 

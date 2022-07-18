@@ -2,6 +2,47 @@ const BookModel = require('../models/bookModel')
 const UserModel = require('../models/userModel')
 const Validator = require('../validator/validator')
 const ReviewModel = require('../models/reviewModel')
+const aws= require("aws-sdk")
+
+
+
+
+
+aws.config.update({
+    accessKeyId: "AKIAY3L35MCRVFM24Q7U",
+    secretAccessKeyId: "qGG1HE0qRixcW1T1Wg1bv+08tQrIkFVyDFqSft4J",
+    region: "ap-south-1"
+})
+
+let uploadFile= async ( file) =>{
+   return new Promise( function(resolve, reject) {
+    // this function will upload file to aws and return the link
+    let s3= new aws.S3({apiVersion: '2006-03-01'}); // we will be using the s3 service of aws
+
+    var uploadParams= {
+        ACL: "public-read",
+        Bucket: "classroom-training-bucket",  //HERE
+        Key: "abc/" + file.originalname, //HERE 
+        Body: file.buffer
+    }
+
+
+    s3.upload( uploadParams, function (err, data ){
+        if(err) {
+            return reject({"error": err})
+        }
+        console.log(data)
+        console.log("file uploaded succesfully")
+        return resolve(data.Location)
+    })
+
+    // let data= await s3.upload( uploadParams)
+    // if( data) return data.Location
+    // else return "there is an error"
+
+   })
+}
+
 
 
 
@@ -68,12 +109,23 @@ const createBook = async function (req, res) {
             })
         }
         
+        let files= req.files
+        if(files && files.length>0){
+            //upload to s3 and get the uploaded link
+            // res.send the link back to frontend/postman
+            let uploadedFileURL= await uploadFile( files[0] )
+            res.status(201).send({msg: "file uploaded succesfully", data: uploadedFileURL})
+        }
+        else{
+            res.status(400).send({ msg: "No file found" })
+        }
+        
        const createBook = await BookModel.create(requestBody)
         return res.status(201).send({ status: true, msg: "Book created Successfully", data: createBook })
 
     } 
     catch (err) {
-        res.status(500).send({
+        return res.status(500).send({
             status: false,
             msg: err.message
         })
@@ -134,7 +186,7 @@ const getbookparam = async function( req, res){
         console.log(dbcall)
         if(!dbcall) return res.status(400).send({status: false, message:"bookId not found"})
 
-        let dbcell= await reviewModel.find({bookId: result})
+        let dbcell= await ReviewModel.find({bookId: result})
         console.log(dbcell)
 
         let dcall = 
@@ -243,7 +295,7 @@ const deleteBooksById = async function (req, res) {
     
         const findBook = await BookModel.findById({ _id: result })
         if (!findBook) {
-            return res.status(404).send({ status: false, message: "No book find by params" })
+            return res.status(403).send({ status: false, message: "No book find by params" })
 
         }
         // 

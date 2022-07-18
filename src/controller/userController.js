@@ -78,7 +78,7 @@ const loginUser = async function (req, res) {
     if (!Validator.isValidpassword(password)) { return res.status(400).send({ status: false, msg: "password should be have minimum 8 character and max 15 character" }) }
 
     const user=await UserModel.findOne({email:email,password:password})
-    if(!user) {return res.status(401).send({status:false,msg:'No such user found'})}
+    if(!user) {return res.status(404).send({status:false,msg:'No such user found'})}
 
     let token =jwt.sign({
         userId:user._id.toString(),

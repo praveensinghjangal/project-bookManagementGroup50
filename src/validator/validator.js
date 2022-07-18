@@ -1,7 +1,7 @@
 const validator = require('validator')
 const mongoose = require('mongoose')
 const passwordValidator = require('password-validator');
-const ObjectId = mongoose.Types.ObjectId;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 const isvalidRequestBody = function (value) {

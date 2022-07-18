@@ -94,6 +94,8 @@ const updateReview = async function (req, res) {
     if (!findreview) { return res.status(404).send({ status: false, message: ' review does not exist or Deleted' }) }
 
     if (idParams != findreview.bookId) return res.status(400).send({ status: false, message: " BookiD AND reviewid doesn't matches" })
+
+    
     const reviewsData = await reviewModel.findOneAndUpdate({ _id: reviewId }, { $set: data }, { new: true })
     const booksReview = findBook.toObject()
     booksReview.reviewData = reviewsData
